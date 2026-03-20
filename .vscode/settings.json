@@ -4,6 +4,7 @@
         "03-uvod-v-rust/vaje/Cargo.toml",
         "04-lastnistvo/vaje/Cargo.toml",
         "05-podatkovni-tipi/predavanja/Cargo.toml",
+        "05-podatkovni-tipi/vaje/Cargo.toml",
         "06-polimorfizem/predavanja/generiki/Cargo.toml",
         "06-polimorfizem/predavanja/znacilnosti/Cargo.toml",
         "06-polimorfizem/predavanja/zivljenjskedobe/Cargo.toml",
