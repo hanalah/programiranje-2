@@ -80,6 +80,52 @@ enum Izraz {
     Operacija(Box<Izraz>, BinOperacija, Box<Izraz>),
 }
 
+impl Izraz {
+    fn eval(&self) -> u32 {
+        match self {
+            Izraz::Konstanta(v) => *v,
+            Izraz::Operacija(l,
+                bin_operacija,
+                d) => {
+                    let lv = l.eval();
+                    let dv = d.eval();
+                    match bin_operacija {
+                        BinOperacija::Plus => lv + dv,
+                        BinOperacija::Minus => lv - dv,
+                        BinOperacija::Times => lv * dv,
+                    }
+                }
+        }
+    }
+
+    fn collect(&self) -> u32 {
+        match self {
+            Izraz::Konstanta(_) => 1,
+            Izraz::Operacija(l,
+                _,
+                d) => l.collect() + d.collect(),
+        }
+    }
+
+    fn izpis(&self) -> String {
+        match self {
+            Izraz::Konstanta(v) => v.to_string(),
+            Izraz::Operacija(l,
+                bin_operacija,
+                d) => {
+                    let lv = l.izpis();
+                    let dv = d.izpis();
+                    let opi = match bin_operacija {
+                        BinOperacija::Plus => "+", //format!("({} + {})", lv, dv), //lv + &String::from(" + ") + &dv,
+                        BinOperacija::Minus => "-",
+                        BinOperacija::Times => "*",
+                    };
+                    format!("({} {} {})", lv, opi, dv)
+            }
+        }
+    }
+}
+
 fn main() {
     let izraz1 = Izraz::Operacija(
         Box::new(Izraz::Konstanta(1)),
@@ -89,5 +135,6 @@ fn main() {
             BinOperacija::Times,
             Box::new(Izraz::Konstanta(3)),
         ))
-    )
+    );
+    println!("{}", izraz1.izpis())
 }
